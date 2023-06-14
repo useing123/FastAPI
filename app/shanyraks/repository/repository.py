@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from pymongo.database import Database
 from fastapi import Response
-from pymongo import MongoClient
+from pymongo import InsertOne
 
 
 class ShanyrakRepository:
