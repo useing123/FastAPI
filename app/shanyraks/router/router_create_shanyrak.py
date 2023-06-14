@@ -26,5 +26,6 @@ def create_shanyrak(
     shanyrak = req.dict()
     shanyrak['user_id'] = jwt_data.user_id
 
-    svc.repository.create_shanyrak(shanyrak)
-    return CreateShanyrakResponse(_id=jwt_data.user_id)
+    ad_id = svc.repository.create_shanyrak(shanyrak)
+    # return CreateShanyrakResponse(_id=jwt_data.user_id)
+    return CreateShanyrakResponse(id=ad_id)
