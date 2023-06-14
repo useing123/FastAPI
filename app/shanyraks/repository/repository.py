@@ -33,9 +33,12 @@ class ShanyrakRepository:
         }
 
         result = self.database['shanyraks'].bulk_write([InsertOne(payload)])
-        inserted_id = result.inserted_ids[0]
-
-        return inserted_id
+        inserted_count = result.inserted_count
+        if inserted_count > 0:
+            inserted_id = payload['_id']
+            return inserted_id
+        else:
+            return None
     
     
     def get_shanyrak(self, user_id: str, shanyrak_id: str):
