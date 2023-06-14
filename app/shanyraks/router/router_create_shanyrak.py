@@ -17,6 +17,18 @@ class CreateShanyrakRequest(AppModel):
 class CreateShanyrakResponse(AppModel):
     _id: str 
 
+# @router.post("/", response_model=CreateShanyrakResponse)
+# def create_shanyrak(
+#     req: CreateShanyrakRequest,
+#     jwt_data: JWTData = Depends(parse_jwt_user_data),
+#     svc: Service = Depends(get_service)
+# ):
+#     shanyrak = req.dict()
+#     shanyrak['user_id'] = jwt_data.user_id
+
+#     svc.repository.create_shanyrak(shanyrak)
+#     return CreateShanyrakResponse(_id=jwt_data.user_id)
+
 @router.post("/", response_model=CreateShanyrakResponse)
 def create_shanyrak(
     req: CreateShanyrakRequest,
@@ -26,6 +38,5 @@ def create_shanyrak(
     shanyrak = req.dict()
     shanyrak['user_id'] = jwt_data.user_id
 
-    req_id = svc.repository.create_shanyrak(shanyrak)
-    # return CreateShanyrakResponse(_id=jwt_data.user_id)
-    return CreateShanyrakResponse(id=req_id)
+    inserted_id = svc.repository.create_shanyrak(shanyrak)
+    return CreateShanyrakResponse(_id=str(inserted_id))
