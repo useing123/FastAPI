@@ -18,7 +18,7 @@ class ShanyrakRepository:
             "user_id": input['user_id']
         }
 
-        self.database['shanyraks'].insert_one(payload)
+        result = self.database['shanyraks'].insert_one(payload)
         ad_id = str(result.inserted_id)
         return ad_id
 
