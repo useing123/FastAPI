@@ -1,25 +1,11 @@
 from bson.objectid import ObjectId
 from pymongo.database import Database
 from fastapi import Response
-from pymongo import InsertOne
 
 
 class ShanyrakRepository:
     def __init__(self, database: Database):
         self.database = database
-
-    # def create_shanyrak(self, input: dict):
-    #     payload = {
-    #         "type": input['type'],
-    #         "price": input['price'],
-    #         "address": input['address'],
-    #         "area": input['area'],
-    #         "rooms_count": input['rooms_count'],
-    #         "description": input['description'],
-    #         "user_id": input['user_id']
-    #     }
-
-    #     self.database['shanyraks'].insert_one(payload)
 
     def create_shanyrak(self, input: dict):
         payload = {
@@ -32,15 +18,8 @@ class ShanyrakRepository:
             "user_id": input['user_id']
         }
 
-        result = self.database['shanyraks'].bulk_write([InsertOne(payload)])
-        inserted_count = result.inserted_count
-        if inserted_count > 0:
-            inserted_id = payload['_id']
-            return inserted_id
-        else:
-            return None
-    
-    
+        self.database['shanyraks'].insert_one(payload)
+
     def get_shanyrak(self, user_id: str, shanyrak_id: str):
         shanyrak = self.database["shanyraks"].find_one(
             {
